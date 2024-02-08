@@ -1,73 +1,71 @@
 package de.keksgauner.whatyschoose;
 
 import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.View;
+import java.util.List;
+import java.util.Random;
 
-import androidx.core.view.WindowCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import de.keksgauner.whatyschoose.databinding.ActivityMainBinding;
-
-import android.view.Menu;
-import android.view.MenuItem;
+import de.keksgauner.whatyschoose.utlis.WordHandler;
 
 public class MainActivity extends AppCompatActivity {
 
-    private AppBarConfiguration appBarConfiguration;
-    private ActivityMainBinding binding;
+    WordHandler wordHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        this.wordHandler = new WordHandler(this);
 
-        setSupportActionBar(binding.toolbar);
+        // Set up list view
+        ListView wordList = findViewById(R.id.word_list);
+        wordList.setAdapter(this.wordHandler.getAdapter());
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
-        binding.fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAnchorView(R.id.fab)
-                .setAction("Action", null).show());
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        // Long click to remove word
+        wordList.setOnItemLongClickListener((adapterView, view, position, time) -> {
+            this.wordHandler.removeWord(position);
             return true;
-        }
+        });
 
-        return super.onOptionsItemSelected(item);
-    }
+        // Add word
+        Button inputButtonAdd = findViewById(R.id.input_button_add);
+        inputButtonAdd.setOnClickListener(view -> {
+            EditText inputText = findViewById(R.id.input_text);
+            String word = inputText.getText().toString().trim();
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
+            if (word.isEmpty()) {
+                Toast.makeText(MainActivity.this, "Please enter a word!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (this.wordHandler.containsWord(word)) {
+                Toast.makeText(MainActivity.this, "Word already exists!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            this.wordHandler.addWord(word);
+            inputText.setText("");
+        });
+
+        // Random button
+        Random random = new Random();
+        Button randomButton = findViewById(R.id.random_button);
+        randomButton.setOnClickListener(view -> {
+            List<String> words = this.wordHandler.getWords();
+            if (words.isEmpty()) {
+                Toast.makeText(MainActivity.this, "No words to choose from!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            int randomPosition = random.nextInt(words.size());
+            String randomWord = words.get(randomPosition);
+            Toast.makeText(MainActivity.this, "Maybe choose: " + randomWord, Toast.LENGTH_SHORT).show();
+            this.wordHandler.getAdapter().setSelectedPosition(randomPosition);
+        });
     }
 }
