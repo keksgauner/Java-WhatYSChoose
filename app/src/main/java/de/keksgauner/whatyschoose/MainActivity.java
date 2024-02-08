@@ -1,6 +1,7 @@
 package de.keksgauner.whatyschoose;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -62,10 +63,30 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            int randomPosition = random.nextInt(words.size());
-            String randomWord = words.get(randomPosition);
-            Toast.makeText(MainActivity.this, "Maybe choose: " + randomWord, Toast.LENGTH_SHORT).show();
-            this.wordHandler.getAdapter().setSelectedPosition(randomPosition);
+            Handler handler = new Handler();
+
+            Runnable runnable = new Runnable() {
+                int count = 0;
+                int delay = 100;
+
+                @Override
+                public void run() {
+                    int randomPosition = random.nextInt(words.size());
+                    wordHandler.getAdapter().setSelectedPosition(randomPosition);
+
+                    count++;
+
+                    if (count < 10) {
+                        delay += 100;
+                        handler.postDelayed(this, delay);
+                    } else {
+                        String randomWord = words.get(randomPosition);
+                        Toast.makeText(MainActivity.this, "Maybe choose: " + randomWord, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            };
+
+            handler.post(runnable);
         });
     }
 }

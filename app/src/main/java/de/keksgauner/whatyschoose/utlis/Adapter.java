@@ -22,7 +22,7 @@ public class Adapter extends ArrayAdapter<String> {
         View view = super.getView(position, convertView, parent);
 
         if (position == selectedPosition) {
-            view.setBackgroundColor(Color.rgb(0, 255, 255));
+            view.setBackgroundColor(Color.GREEN);
         } else {
             view.setBackgroundColor(Color.TRANSPARENT);
         }
