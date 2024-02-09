@@ -2,7 +2,7 @@ name: Android CI
 
 on:
   push:
-    branches: [ feat/workflow ]
+    branches: [ master ]
   pull_request:
     branches: [ master ]
     tags:
