@@ -42,11 +42,11 @@ public class MainActivity extends AppCompatActivity {
             String word = inputText.getText().toString().trim();
 
             if (word.isEmpty()) {
-                Toast.makeText(MainActivity.this, "Please enter a word!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, R.string.error_word_enter, Toast.LENGTH_SHORT).show();
                 return;
             }
             if (this.wordHandler.containsWord(word)) {
-                Toast.makeText(MainActivity.this, "Word already exists!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, R.string.error_word_exist, Toast.LENGTH_SHORT).show();
                 return;
             }
             this.wordHandler.addWord(word);
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         randomButton.setOnClickListener(view -> {
             List<String> words = this.wordHandler.getWords();
             if (words.isEmpty()) {
-                Toast.makeText(MainActivity.this, "No words to choose from!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, R.string.error_words_not_exist, Toast.LENGTH_SHORT).show();
                 return;
             }
 
