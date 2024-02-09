@@ -8,13 +8,17 @@ import android.widget.ArrayAdapter;
 
 import java.util.List;
 
+import de.keksgauner.whatyschoose.R;
+
 public class Adapter extends ArrayAdapter<String> {
     List<String> words;
     int selectedPosition = -1;
+    int bgColor;
 
     public Adapter(Context context, int resource, List<String> objects) {
         super(context, resource, objects);
         this.words = objects;
+        this.bgColor = context.getResources().getColor(R.color.colorAccent, context.getTheme());
     }
 
     @Override
@@ -22,7 +26,7 @@ public class Adapter extends ArrayAdapter<String> {
         View view = super.getView(position, convertView, parent);
 
         if (position == selectedPosition) {
-            view.setBackgroundColor(Color.GREEN);
+            view.setBackgroundColor(this.bgColor);
         } else {
             view.setBackgroundColor(Color.TRANSPARENT);
         }

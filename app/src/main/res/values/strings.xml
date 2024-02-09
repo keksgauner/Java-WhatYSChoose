@@ -3,4 +3,7 @@
     <string name="random_button">Choose Random</string>
     <string name="input_text_hint">Enter word</string>
     <string name="input_button_add">Add</string>
+    <string name="error_word_exist">Word already exist!</string>
+    <string name="error_word_enter">Please enter a word!</string>
+    <string name="error_words_not_exist">No words to choose from!</string>
 </resources>

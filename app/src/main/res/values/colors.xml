@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Helle Farbpalette -->
     <color name="colorPrimary">#3F51B5</color> <!-- Indigo -->
     <color name="colorPrimaryDark">#303F9F</color> <!-- Dark Indigo -->
     <color name="colorAccent">#FF4081</color> <!-- Pink -->
@@ -8,7 +7,6 @@
     <color name="textColorSecondaryLight">#000000</color> <!-- Schwarz -->
     <color name="listViewBackgroundLight">#E0E0E0</color> <!-- Light Grey -->
 
-    <!-- Dunkle Farbpalette -->
     <color name="colorPrimaryDarkTheme">#1F1F1F</color> <!-- Dark Grey -->
     <color name="colorAccentDarkTheme">#FF4081</color> <!-- Pink -->
     <color name="textColorPrimaryDark">#FFFFFF</color> <!-- Weiß -->

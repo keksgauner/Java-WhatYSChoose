@@ -1,13 +1,5 @@
 <resources>
-    <!-- Base application theme. -->
-    <style name="Base.Theme.WhatYSChoose" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColorPrimary">@color/textColorPrimaryLight</item>
-        <item name="android:textColorSecondary">@color/textColorSecondaryLight</item>
-
-        <item name="android:background">@color/listViewBackgroundLight</item>
+    <style name="Base.Theme.WhatYSChoose" parent="Theme.Material3.Light.NoActionBar">
     </style>
 
     <style name="Theme.WhatYSChoose" parent="Base.Theme.WhatYSChoose" />
